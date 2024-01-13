@@ -193,29 +193,38 @@ function dbInitBind ()
 	return $return;
 }
 
-function curPageURL ()
-{
-    $pageURL = 'http';
-    if (isset ($_SERVER["HTTPS"])) {
-		if ($_SERVER["HTTPS"] == 'on') {
-	        $pageURL .= "s";
-		}
-    }
-    $pageURL .= "://";
 
-    if (isset ($_SERVER["SERVER_PORT"])) {
-		if ($_SERVER["SERVER_PORT"] != "80") {
-			$pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
-		} else {
-			$pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
-		}
-    } else {
-		$pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
-	}
-	$pageURL = str_replace ('/install/install_action.php?step=2', '', $pageURL);
+//function curPageURL ()
+//{
+//    $pageURL = 'http';
+//    if (isset ($_SERVER["HTTPS"])) {
+//		if ($_SERVER["HTTPS"] == 'on') {
+//	        $pageURL .= "s";
+//		}
+//    }
+//    $pageURL .= "://";
+
+//    if (isset ($_SERVER["SERVER_PORT"])) {
+//		if ($_SERVER["SERVER_PORT"] != "80") {
+//			$pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+//		} else {
+//			$pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+//		}
+//   } else {
+//		$pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+//	}
+//	$pageURL = str_replace ('/install/install_action.php?step=2', '', $pageURL);
+//    return $pageURL;
+//}
+function curPageURL()
+{
+    $pageURL = getenv('SITE_URL');
+    // 其他代码逻辑
+	$pageURL = str_replace('/install/install_action.php?step=2', '', $pageURL);
     return $pageURL;
 }
 
+	
 function stopError ($err)
 {
 	global $l;
